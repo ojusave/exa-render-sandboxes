@@ -1,0 +1,32 @@
+# Run local checks on every change. These jobs need no provider keys and create no cloud resources.
+name: Checks
+on:
+  push:
+  pull_request:
+# The jobs only read this repository; they do not modify it or publish artifacts.
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      # Download the committed source and select the tested Python runtime family.
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.13'
+      # Install the client libraries, then run local behavior and evidence checks.
+      - run: python -m pip install -r python/requirements.txt
+      - run: python -m unittest discover -s tests -v
+  typescript:
+    runs-on: ubuntu-latest
+    steps:
+      # Download the source and install the Node.js runtime used by the TypeScript client.
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+      # The lockfile fixes package versions; type checks and tests make no paid requests.
+      - run: npm ci --prefix typescript
+      - run: npm run check --prefix typescript
+      - run: npm run test --prefix typescript

@@ -1,0 +1,21 @@
+<!-- A narrow, top-to-bottom diagram stays readable in both desktop and phone previews. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="834" viewBox="0 0 300 834" role="img" aria-labelledby="title desc">
+  <title id="title">Exa search and Render code verification</title>
+  <desc id="desc">The local client prepares a Render snapshot, optionally searches Exa, asks a model to repair code, tests it in Render, independently verifies the final code in another sandbox, and cleans up.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#697183" stroke-width="1.5"/></marker></defs>
+  <!-- Shared colors distinguish the local controller, cloud work, and cleanup. -->
+  <style>text{font-family:Arial,sans-serif;font-size:14px;fill:#17243b;text-anchor:middle}.heading{font-weight:700}.small{font-size:12px;fill:#526078}.local{fill:#edf3ff;stroke:#6d8dd1}.cloud{fill:#f2f0ff;stroke:#9784cb}.end{fill:#ecf7f1;stroke:#70a78b}.arrow{fill:none;stroke:#697183;stroke-width:1.5;marker-end:url(#arrow)}</style>
+  <rect class="local" x="12" y="10" width="276" height="82" rx="10"/><text class="heading" x="150" y="35">Local Python or TypeScript client</text><text x="150" y="57">Keeps keys and expected answers</text><text class="small" x="150" y="77">Controls every step below</text>
+  <path class="arrow" d="M150 92V121"/>
+  <rect class="cloud" x="12" y="127" width="276" height="82" rx="10"/><text class="heading" x="150" y="152">1. Prepare on Render</text><text x="150" y="174">Install Polars and save a snapshot</text><text class="small" x="150" y="194">Only package-download sites allowed</text>
+  <path class="arrow" d="M150 209V238"/>
+  <rect class="cloud" x="12" y="244" width="276" height="82" rx="10"/><text class="heading" x="150" y="269">2. Search with Exa</text><text x="150" y="291">Return current official documentation</text><text class="small" x="150" y="311">Skipped in the no-search comparison</text>
+  <path class="arrow" d="M150 326V355"/>
+  <rect class="cloud" x="12" y="361" width="276" height="82" rx="10"/><text class="heading" x="150" y="386">3. Ask Haiku through OpenRouter</text><text x="150" y="408">Return repaired Python source</text><text class="small" x="150" y="428">Same task and two-attempt limit</text>
+  <path class="arrow" d="M150 443V472"/>
+  <rect class="cloud" x="12" y="478" width="276" height="82" rx="10"/><text class="heading" x="150" y="503">4. Test the repair on Render</text><text x="150" y="525">Return three public test results</text><text class="small" x="150" y="545">Client may request one more repair</text>
+  <path class="arrow" d="M150 560V589"/>
+  <rect class="cloud" x="12" y="595" width="276" height="82" rx="10"/><text class="heading" x="150" y="620">5. Verify in a fresh sandbox</text><text x="150" y="642">Run all 15 cases on the final source</text><text class="small" x="150" y="662">Client compares with its own answers</text>
+  <path class="arrow" d="M150 677V706"/>
+  <rect class="end" x="12" y="712" width="276" height="108" rx="10"/><text class="heading" x="150" y="737">6. Save evidence locally and clean up</text><text x="150" y="759">Terminate every owned sandbox</text><text x="150" y="779">Delete the prepared snapshot</text><text class="small" x="150" y="801">Read cloud state to confirm cleanup</text>
+</svg>

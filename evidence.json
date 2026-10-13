@@ -1,0 +1,1216 @@
+{
+  "checked_at": "2026-10-13T18:33:48.676167+00:00",
+  "comparisons": [
+    {
+      "language": "python",
+      "model": "anthropic/claude-haiku-5.5",
+      "complete": true,
+      "source_sha256": {
+        "python/main.py": "d050b1b3bd9014e7396cae5cfd624d6e9832cf72432e7adf8d2e0a4d4e14948e",
+        "shared/driver.py": "2313deee31e2f1f16acba2eec0900fe8030bf04e76d1065029c07a7afe83aa26",
+        "shared/reference.py": "b72a9eabc079b3798986beea4669218cdfc3be68b00f379ebb318081af0d3253",
+        "shared/remote.py": "e2e7ba18bc3b88e78b8154e05c9c788c87308ab77ac6715ee1b86fa314484efd",
+        "shared/starter.py": "8460af5f95d881c71227492c20843b8167ccd6f3c6187f43e4498c78667451ce",
+        "shared/contract.json": "ec10c54ff476f1b8c0c52bd61b9095fe8152ea0674a78ea6f4d19906a07fe1dc",
+        "shared/cases.json": "7de8d0a3abb6cd80d3f8c9c72f12c1e8eb0dd1bf2c2b61a9c2525372e8b9302f"
+      },
+      "fixture_sha256": "7de8d0a3abb6cd80d3f8c9c72f12c1e8eb0dd1bf2c2b61a9c2525372e8b9302f",
+      "contract_sha256": "ec10c54ff476f1b8c0c52bd61b9095fe8152ea0674a78ea6f4d19906a07fe1dc",
+      "reference_passed": 15,
+      "original_failures": 3,
+      "boundary_checks": {
+        "timeout": true,
+        "output_limit": true,
+        "network": true,
+        "credentials_absent": true
+      },
+      "network_host_control": 200,
+      "network_observation": {
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 124,
+        "limit": "timeout"
+      },
+      "trials": [
+        {
+          "mode": "baseline",
+          "passed": true,
+          "checks_passed": 15,
+          "checks_total": 15,
+          "attempts": 1,
+          "seconds": 20.344291707966477,
+          "model_cost_usd": 0.0006488,
+          "search_cost_usd": 0,
+          "source_sha256": "f9243df535752b064f9c5620f4dfa7ddaa5084eb1d2643c48ecb1845e818a076",
+          "candidate_file": "examples/verified/python/baseline-1-solution.py",
+          "search_urls": [],
+          "verification": [
+            {
+              "name": "pad missing count",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Mon",
+                      "count": 2
+                    },
+                    {
+                      "day": "Tue",
+                      "count": 4
+                    },
+                    {
+                      "day": "Wed",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "decode positions",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "blue",
+                    null,
+                    "red"
+                  ],
+                  "dtype": "Enum(categories=['red', 'blue'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "parse calendar dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "2026-10-13",
+                    null,
+                    "2024-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "pad missing day",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Wed",
+                      "count": 0
+                    },
+                    {
+                      "day": null,
+                      "count": -2
+                    },
+                    {
+                      "day": null,
+                      "count": 9
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty day list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": null,
+                      "count": 7
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty count list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Fri",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "both empty",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "equal heights",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Sun",
+                      "count": 3
+                    },
+                    {
+                      "day": "Sat",
+                      "count": 1
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "different labels",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "beta",
+                    "gamma",
+                    null,
+                    "alpha"
+                  ],
+                  "dtype": "Enum(categories=['gamma', 'alpha', 'beta'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "no categories to decode",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "century boundary",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "1999-12-31",
+                    "2000-01-01",
+                    "2000-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "invalid date stays an error",
+              "passed": true,
+              "actual": {
+                "error": "InvalidOperationError",
+                "message": "conversion from `str` to `date` failed in column 'date' for 1 out of 1 values: [\"2026-02-30\"]\n\nYou might want to try:\n- setting `strict=False` to set values that cannot be converted to `null`\n- using `str.strptime`, `str.to_date`, `str.to_datetime`, or `str.to_time` and providing a format string\n\nThis error occurred in the following expression:\n\tcol(\"date\").str.strptime([\"raise\"])\n"
+              },
+              "exit_code": 0,
+              "limit": null
+            }
+          ]
+        },
+        {
+          "mode": "exa",
+          "passed": true,
+          "checks_passed": 15,
+          "checks_total": 15,
+          "attempts": 1,
+          "seconds": 21.852368125051726,
+          "model_cost_usd": 0.0026187,
+          "search_cost_usd": 0.007,
+          "source_sha256": "833cc4403e71682671c4f39bfbfa9129b9abcb759a8dd9b7e7c3557842457147",
+          "candidate_file": "examples/verified/python/exa-1-solution.py",
+          "search_urls": [
+            "https://pola.rs/posts/announcing-polars-2/",
+            "https://docs.pola.rs/releases/upgrade/2/",
+            "https://pola.rs/posts/release-polars-2/"
+          ],
+          "verification": [
+            {
+              "name": "pad missing count",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Mon",
+                      "count": 2
+                    },
+                    {
+                      "day": "Tue",
+                      "count": 4
+                    },
+                    {
+                      "day": "Wed",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "decode positions",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "blue",
+                    null,
+                    "red"
+                  ],
+                  "dtype": "Enum(categories=['red', 'blue'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "parse calendar dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "2026-10-13",
+                    null,
+                    "2024-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "pad missing day",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Wed",
+                      "count": 0
+                    },
+                    {
+                      "day": null,
+                      "count": -2
+                    },
+                    {
+                      "day": null,
+                      "count": 9
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty day list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": null,
+                      "count": 7
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty count list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Fri",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "both empty",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "equal heights",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Sun",
+                      "count": 3
+                    },
+                    {
+                      "day": "Sat",
+                      "count": 1
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "different labels",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "beta",
+                    "gamma",
+                    null,
+                    "alpha"
+                  ],
+                  "dtype": "Enum(categories=['gamma', 'alpha', 'beta'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "no categories to decode",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "century boundary",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "1999-12-31",
+                    "2000-01-01",
+                    "2000-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "invalid date stays an error",
+              "passed": true,
+              "actual": {
+                "error": "InvalidOperationError",
+                "message": "conversion from `str` to `date` failed in column 'date' for 1 out of 1 values: [\"2026-02-30\"]\n\nYou might want to try:\n- setting `strict=False` to set values that cannot be converted to `null`\n- using `str.strptime`, `str.to_date`, `str.to_datetime`, or `str.to_time` and providing a format string\n\nThis error occurred in the following expression:\n\tcol(\"date\").str.strptime([\"raise\"])\n"
+              },
+              "exit_code": 0,
+              "limit": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "model": "anthropic/claude-haiku-5.5",
+      "complete": true,
+      "source_sha256": {
+        "typescript/main.ts": "034a87b937f38e2b3741c77bd9db429bb7714bba1ac8236b115709e2c1e39387",
+        "shared/remote.py": "e2e7ba18bc3b88e78b8154e05c9c788c87308ab77ac6715ee1b86fa314484efd",
+        "shared/driver.py": "2313deee31e2f1f16acba2eec0900fe8030bf04e76d1065029c07a7afe83aa26",
+        "shared/starter.py": "8460af5f95d881c71227492c20843b8167ccd6f3c6187f43e4498c78667451ce",
+        "shared/reference.py": "b72a9eabc079b3798986beea4669218cdfc3be68b00f379ebb318081af0d3253",
+        "shared/cases.json": "7de8d0a3abb6cd80d3f8c9c72f12c1e8eb0dd1bf2c2b61a9c2525372e8b9302f",
+        "shared/contract.json": "ec10c54ff476f1b8c0c52bd61b9095fe8152ea0674a78ea6f4d19906a07fe1dc"
+      },
+      "fixture_sha256": "7de8d0a3abb6cd80d3f8c9c72f12c1e8eb0dd1bf2c2b61a9c2525372e8b9302f",
+      "contract_sha256": "ec10c54ff476f1b8c0c52bd61b9095fe8152ea0674a78ea6f4d19906a07fe1dc",
+      "reference_passed": 15,
+      "original_failures": 3,
+      "boundary_checks": {
+        "timeout": true,
+        "output_limit": true,
+        "network": true,
+        "credentials_absent": true
+      },
+      "network_host_control": 200,
+      "network_observation": {
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 124,
+        "limit": "timeout"
+      },
+      "trials": [
+        {
+          "mode": "baseline",
+          "passed": true,
+          "checks_passed": 15,
+          "checks_total": 15,
+          "attempts": 1,
+          "seconds": 20.233726499999996,
+          "model_cost_usd": 0.0006762,
+          "search_cost_usd": 0,
+          "source_sha256": "51862dbe954965b3378ef171081b5fc9a851550e0da4feaed728d1c5f8a508f5",
+          "candidate_file": "examples/verified/typescript/baseline-1-solution.py",
+          "search_urls": [],
+          "verification": [
+            {
+              "name": "pad missing count",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Mon",
+                      "count": 2
+                    },
+                    {
+                      "day": "Tue",
+                      "count": 4
+                    },
+                    {
+                      "day": "Wed",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "decode positions",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "blue",
+                    null,
+                    "red"
+                  ],
+                  "dtype": "Enum(categories=['red', 'blue'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "parse calendar dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "2026-10-13",
+                    null,
+                    "2024-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "pad missing day",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Wed",
+                      "count": 0
+                    },
+                    {
+                      "day": null,
+                      "count": -2
+                    },
+                    {
+                      "day": null,
+                      "count": 9
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty day list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": null,
+                      "count": 7
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty count list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Fri",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "both empty",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "equal heights",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Sun",
+                      "count": 3
+                    },
+                    {
+                      "day": "Sat",
+                      "count": 1
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "different labels",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "beta",
+                    "gamma",
+                    null,
+                    "alpha"
+                  ],
+                  "dtype": "Enum(categories=['gamma', 'alpha', 'beta'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "no categories to decode",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "century boundary",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "1999-12-31",
+                    "2000-01-01",
+                    "2000-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "invalid date stays an error",
+              "passed": true,
+              "actual": {
+                "error": "InvalidOperationError",
+                "message": "conversion from `str` to `date` failed in column 'date' for 1 out of 1 values: [\"2026-02-30\"]\n\nYou might want to try:\n- setting `strict=False` to set values that cannot be converted to `null`\n- using `str.strptime`, `str.to_date`, `str.to_datetime`, or `str.to_time` and providing a format string\n\nThis error occurred in the following expression:\n\tcol(\"date\").str.strptime([\"raise\"])\n"
+              },
+              "exit_code": 0,
+              "limit": null
+            }
+          ]
+        },
+        {
+          "mode": "exa",
+          "passed": true,
+          "checks_passed": 15,
+          "checks_total": 15,
+          "attempts": 1,
+          "seconds": 22.081403290999994,
+          "model_cost_usd": 0.0022474,
+          "search_cost_usd": 0.007,
+          "source_sha256": "a41837c045b6e3cf436f536fb71db21295730f972762abe5121009d784d7f0fc",
+          "candidate_file": "examples/verified/typescript/exa-1-solution.py",
+          "search_urls": [
+            "https://pola.rs/posts/announcing-polars-2/",
+            "https://docs.pola.rs/releases/upgrade/2/",
+            "https://pola.rs/posts/release-polars-2/"
+          ],
+          "verification": [
+            {
+              "name": "pad missing count",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Mon",
+                      "count": 2
+                    },
+                    {
+                      "day": "Tue",
+                      "count": 4
+                    },
+                    {
+                      "day": "Wed",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "decode positions",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "blue",
+                    null,
+                    "red"
+                  ],
+                  "dtype": "Enum(categories=['red', 'blue'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "parse calendar dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "2026-10-13",
+                    null,
+                    "2024-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "pad missing day",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Wed",
+                      "count": 0
+                    },
+                    {
+                      "day": null,
+                      "count": -2
+                    },
+                    {
+                      "day": null,
+                      "count": 9
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty day list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": null,
+                      "count": 7
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty count list",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Fri",
+                      "count": null
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "both empty",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "equal heights",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "rows": [
+                    {
+                      "day": "Sun",
+                      "count": 3
+                    },
+                    {
+                      "day": "Sat",
+                      "count": 1
+                    }
+                  ],
+                  "schema": [
+                    "String",
+                    "Int64"
+                  ]
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "different labels",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "beta",
+                    "gamma",
+                    null,
+                    "alpha"
+                  ],
+                  "dtype": "Enum(categories=['gamma', 'alpha', 'beta'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "no categories to decode",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Enum(categories=['x', 'y'])"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "empty dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "all missing dates",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    null,
+                    null
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "century boundary",
+              "passed": true,
+              "actual": {
+                "result": {
+                  "values": [
+                    "1999-12-31",
+                    "2000-01-01",
+                    "2000-02-29"
+                  ],
+                  "dtype": "Date"
+                }
+              },
+              "exit_code": 0,
+              "limit": null
+            },
+            {
+              "name": "invalid date stays an error",
+              "passed": true,
+              "actual": {
+                "error": "InvalidOperationError",
+                "message": "conversion from `str` to `date` failed in column 'date' for 1 out of 1 values: [\"2026-02-30\"]\n\nYou might want to try:\n- setting `strict=False` to set values that cannot be converted to `null`\n- using `str.strptime`, `str.to_date`, `str.to_datetime`, or `str.to_time` and providing a format string\n\nThis error occurred in the following expression:\n\tcol(\"date\").str.strptime([\"raise\"])\n"
+              },
+              "exit_code": 0,
+              "limit": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "all_resources_terminated": true,
+  "all_snapshots_absent": true,
+  "tests": {
+    "python": 9,
+    "typescript": 9,
+    "typescript_typecheck": "passed"
+  },
+  "model_comparison_calls": 4,
+  "earlier_rejected_model_requests": 2,
+  "exa_searches_including_diagnostics": 4,
+  "cleanup_counts": {
+    "sandboxes": 23,
+    "snapshots": 7
+  },
+  "evidence_scope": "Public source, measured results and fingerprints. Account, resource and request identifiers are omitted.",
+  "publication_checks": {
+    "python_tests": 11,
+    "typescript_tests": 9,
+    "typescript_typecheck": "passed",
+    "live_source_and_candidate_fingerprints": "matched"
+  }
+}

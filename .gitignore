@@ -1,0 +1,17 @@
+# Credentials, installed packages and private run journals stay on this computer.
+.venv/
+node_modules/
+.runs/
+__pycache__/
+.pytest_cache/
+.env
+.env.*
+!.env.example
+.DS_Store
+# These helpers and previews belong to the maintainer's local working environment.
+scripts/with_render_credentials.py
+scripts/preview.mjs
+docs/preview*
+docs/top-*.png
+docs/diagram-*.png
+docs/final-checks.json

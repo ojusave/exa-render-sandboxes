@@ -1,0 +1,3 @@
+# The Render client manages remote computers; httpx makes Exa and model requests.
+render==1.2.0
+httpx==0.28.1

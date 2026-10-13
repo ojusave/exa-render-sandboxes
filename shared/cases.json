@@ -1,0 +1,353 @@
+{
+  "public": [
+    {
+      "name": "pad missing count",
+      "input": {
+        "op": "align",
+        "days": [
+          "Mon",
+          "Tue",
+          "Wed"
+        ],
+        "counts": [
+          2,
+          4
+        ]
+      },
+      "expected": {
+        "result": {
+          "rows": [
+            {
+              "day": "Mon",
+              "count": 2
+            },
+            {
+              "day": "Tue",
+              "count": 4
+            },
+            {
+              "day": "Wed",
+              "count": null
+            }
+          ],
+          "schema": [
+            "String",
+            "Int64"
+          ]
+        }
+      }
+    },
+    {
+      "name": "decode positions",
+      "input": {
+        "op": "categories",
+        "codes": [
+          1,
+          null,
+          0
+        ],
+        "labels": [
+          "red",
+          "blue"
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [
+            "blue",
+            null,
+            "red"
+          ],
+          "dtype": "Enum(categories=['red', 'blue'])"
+        }
+      }
+    },
+    {
+      "name": "parse calendar dates",
+      "input": {
+        "op": "dates",
+        "values": [
+          "2026-10-13",
+          null,
+          "2024-02-29"
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [
+            "2026-10-13",
+            null,
+            "2024-02-29"
+          ],
+          "dtype": "Date"
+        }
+      }
+    }
+  ],
+  "held_out": [
+    {
+      "name": "pad missing day",
+      "input": {
+        "op": "align",
+        "days": [
+          "Wed"
+        ],
+        "counts": [
+          0,
+          -2,
+          9
+        ]
+      },
+      "expected": {
+        "result": {
+          "rows": [
+            {
+              "day": "Wed",
+              "count": 0
+            },
+            {
+              "day": null,
+              "count": -2
+            },
+            {
+              "day": null,
+              "count": 9
+            }
+          ],
+          "schema": [
+            "String",
+            "Int64"
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty day list",
+      "input": {
+        "op": "align",
+        "days": [],
+        "counts": [
+          7
+        ]
+      },
+      "expected": {
+        "result": {
+          "rows": [
+            {
+              "day": null,
+              "count": 7
+            }
+          ],
+          "schema": [
+            "String",
+            "Int64"
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty count list",
+      "input": {
+        "op": "align",
+        "days": [
+          "Fri"
+        ],
+        "counts": []
+      },
+      "expected": {
+        "result": {
+          "rows": [
+            {
+              "day": "Fri",
+              "count": null
+            }
+          ],
+          "schema": [
+            "String",
+            "Int64"
+          ]
+        }
+      }
+    },
+    {
+      "name": "both empty",
+      "input": {
+        "op": "align",
+        "days": [],
+        "counts": []
+      },
+      "expected": {
+        "result": {
+          "rows": [],
+          "schema": [
+            "String",
+            "Int64"
+          ]
+        }
+      }
+    },
+    {
+      "name": "equal heights",
+      "input": {
+        "op": "align",
+        "days": [
+          "Sun",
+          "Sat"
+        ],
+        "counts": [
+          3,
+          1
+        ]
+      },
+      "expected": {
+        "result": {
+          "rows": [
+            {
+              "day": "Sun",
+              "count": 3
+            },
+            {
+              "day": "Sat",
+              "count": 1
+            }
+          ],
+          "schema": [
+            "String",
+            "Int64"
+          ]
+        }
+      }
+    },
+    {
+      "name": "different labels",
+      "input": {
+        "op": "categories",
+        "codes": [
+          2,
+          0,
+          null,
+          1
+        ],
+        "labels": [
+          "gamma",
+          "alpha",
+          "beta"
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [
+            "beta",
+            "gamma",
+            null,
+            "alpha"
+          ],
+          "dtype": "Enum(categories=['gamma', 'alpha', 'beta'])"
+        }
+      }
+    },
+    {
+      "name": "all missing",
+      "input": {
+        "op": "categories",
+        "codes": [
+          null,
+          null
+        ],
+        "labels": [
+          "x",
+          "y"
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [
+            null,
+            null
+          ],
+          "dtype": "Enum(categories=['x', 'y'])"
+        }
+      }
+    },
+    {
+      "name": "no categories to decode",
+      "input": {
+        "op": "categories",
+        "codes": [],
+        "labels": [
+          "x",
+          "y"
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [],
+          "dtype": "Enum(categories=['x', 'y'])"
+        }
+      }
+    },
+    {
+      "name": "empty dates",
+      "input": {
+        "op": "dates",
+        "values": []
+      },
+      "expected": {
+        "result": {
+          "values": [],
+          "dtype": "Date"
+        }
+      }
+    },
+    {
+      "name": "all missing dates",
+      "input": {
+        "op": "dates",
+        "values": [
+          null,
+          null
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [
+            null,
+            null
+          ],
+          "dtype": "Date"
+        }
+      }
+    },
+    {
+      "name": "century boundary",
+      "input": {
+        "op": "dates",
+        "values": [
+          "1999-12-31",
+          "2000-01-01",
+          "2000-02-29"
+        ]
+      },
+      "expected": {
+        "result": {
+          "values": [
+            "1999-12-31",
+            "2000-01-01",
+            "2000-02-29"
+          ],
+          "dtype": "Date"
+        }
+      }
+    },
+    {
+      "name": "invalid date stays an error",
+      "input": {
+        "op": "dates",
+        "values": [
+          "2026-02-30"
+        ]
+      },
+      "expected_error": true
+    }
+  ]
+}

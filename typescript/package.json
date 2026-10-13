@@ -1,0 +1,14 @@
+{
+  "name": "exa-render-repair-demo",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "compare": "tsx main.ts compare",
+    "smoke": "tsx main.ts smoke",
+    "check": "tsc --noEmit",
+    "test": "tsx --test ../tests/client.test.mts"
+  },
+  "dependencies": { "@renderinc/sdk": "1.2.0" },
+  "devDependencies": { "@types/node": "24.19.2", "tsx": "4.23.15", "typescript": "6.0.3" }
+}
