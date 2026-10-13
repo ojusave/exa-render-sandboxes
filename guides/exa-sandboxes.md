@@ -8,7 +8,7 @@ Both the Python and TypeScript clients repair the same Python reporting module a
 
 Each client compares two modes: the same model receives the task either without search or with documentation retrieved by Exa. Each mode gets at most two repair attempts. The final source faces 15 checks, including 12 inputs the model did not see, in a fresh sandbox. These are called **held-out tests**. The expected answers stay in the client.
 
-This community example tests one task. Render Sandboxes is in early access. The observed results establish integration behavior, not a general benchmark or an official partnership. See <a href="../VALIDATION.md" target="_blank" rel="noopener noreferrer">the validation record</a> for actual results and remaining limits.
+Render Sandboxes is in early access. The comparison covers one repair task; both versions passed in the recorded run.
 
 ![Where each step runs](../docs/flow.svg)
 
@@ -60,14 +60,13 @@ The Python implementation is <a href="../python/main.py" target="_blank" rel="no
 <details>
 <summary><strong>TypeScript</strong></summary>
 
-Install the versions recorded in the lockfile and check the code's declared types:
+Install the versions recorded in the lockfile:
 
 ```sh
 npm ci --prefix typescript
-npm run check --prefix typescript
 ```
 
-The TypeScript implementation is <a href="../typescript/main.ts" target="_blank" rel="noopener noreferrer">`typescript/main.ts`</a>. A successful type check exits without diagnostics.
+The TypeScript implementation is <a href="../typescript/main.ts" target="_blank" rel="noopener noreferrer">`typescript/main.ts`</a>. Installation finishes when npm exits without an error.
 
 </details>
 
@@ -116,7 +115,7 @@ Choose a new run-directory name each time. The runner refuses to overwrite prior
 
 The runner checks model credit and supported settings before allocating a sandbox. It then installs Polars 2.0.0, validates the original failures and maintainer solution, runs both model modes, and cleans up. `running` means the machine is ready; it does not mean the repair passed. A one-pair comparison creates five temporary sandboxes and one snapshot, makes one Exa search, and makes at most four model requests.
 
-The initial `Run journal:` line identifies the saved record. While cloud commands run, output can be quiet for several minutes. After each mode, the runner prints the number of passed checks and elapsed time. Final cleanup confirmation is separate from repair success. Read the <a href="../VALIDATION.md" target="_blank" rel="noopener noreferrer">observed transcript</a> rather than assuming a model will always pass.
+The initial `Run journal:` line identifies the saved record. While cloud commands run, output can be quiet for several minutes. After each mode, the runner prints the number of passed checks and elapsed time. Final cleanup confirmation is separate from repair success.
 
 ## Read and verify the result
 
@@ -125,18 +124,6 @@ Open `run.json` inside the printed run directory. Each trial records the final s
 The model's success claim does not determine the result. The host compares returned values, order, missing values, types and expected errors with <a href="../shared/cases.json" target="_blank" rel="noopener noreferrer">the fixed test cases</a>. It never sends the held-out inputs or <a href="../shared/reference.py" target="_blank" rel="noopener noreferrer">maintainer reference solution</a> to the model. The reference solution checks the test setup, and is overwritten before the first repair begins.
 
 Model and Exa charges are recorded when their responses report them. Render compute and snapshot charges are separate and are not estimated by this runner. Timing includes repair, search and final verification, but excludes package setup, calibration and initial repair-machine creation.
-
-## Check the runner itself
-
-These local tests make no paid requests:
-
-```sh
-python/.venv/bin/python -m unittest discover -s tests -v
-npm run test --prefix typescript
-npm run check --prefix typescript
-```
-
-Use `smoke` instead of `compare` to check real Render execution without a model or search. Use `integration` to add a live Exa search to that check. Both create paid temporary resources. They validate the maintained reference solution, not an AI-generated repair. The fixed probes check bounded execution time, bounded output, absent application credentials, and an outbound HTTPS attempt with a successful local control.
 
 ## Cleanup and recovery
 
@@ -173,8 +160,6 @@ unset RENDER_API_KEY RENDER_WORKSPACE_ID EXA_API_KEY OPENROUTER_API_KEY OPENROUT
 rm .env
 ```
 
-## What this example measures
-
-Exa's <a href="https://exa.ai/blog/webcode" target="_blank" rel="noopener noreferrer">WebCode research</a> evaluates current documentation through executable coding tasks. This example applies that pattern to one reporting-module migration on Render. Both clients use the same predeclared task, query, test cases and attempt limit. A single selected task cannot establish general search quality, and the observed no-search model also passed every test.
+## Related examples
 
 For different workflows, see <a href="https://github.com/ojusave/render-workflows-exa-langchain" target="_blank" rel="noopener noreferrer">Exa research with Render Workflows</a> and <a href="https://github.com/ojusave/openrouter-sandboxes" target="_blank" rel="noopener noreferrer">OpenRouter tool calling with Render Sandboxes</a>.

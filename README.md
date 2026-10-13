@@ -11,14 +11,12 @@ Repair Python code with Exa, Claude, and Render Sandboxes.
   <a href="https://exa.ai/docs" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Exa-Search-111111" alt="Exa Search" /></a>
   <a href="python/main.py" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Python-Client-3776AB?logo=python&amp;logoColor=white" alt="Python client" /></a>
   <a href="typescript/main.ts" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/TypeScript-Client-3178C6?logo=typescript&amp;logoColor=white" alt="TypeScript client" /></a>
-  <a href="https://github.com/ojusave/exa-render-sandboxes/actions/workflows/checks.yml" target="_blank" rel="noopener noreferrer"><img src="https://github.com/ojusave/exa-render-sandboxes/actions/workflows/checks.yml/badge.svg?branch=main" alt="Automated checks on main" /></a>
 </p>
 
 <p>
   <a href="#quickstart"><strong>Quickstart</strong></a>
   · <a href="guides/exa-sandboxes.md" target="_blank" rel="noopener noreferrer">Full guide</a>
   · <a href="#expected-result">Expected result</a>
-  · <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">Test results</a>
 </p>
 
 </div>
@@ -27,7 +25,7 @@ The sample Python report uses Polars, a library for working with tables, but bre
 
 You can run the example from Python or TypeScript. That program runs on your computer, calls Claude through OpenRouter, and sends the generated Python code to a temporary Linux environment on Render.
 
-It also tries the same repair without Exa, so you can compare the two. Each version gets up to two attempts, then a fresh sandbox tests the final code. There are 15 test cases, including 12 that Claude doesn't see while working on the fix.
+It also tries the same repair without Exa, so you can compare the two. Each version gets up to two attempts, then a fresh sandbox tests the final code.
 
 ## Prerequisites
 
@@ -104,7 +102,7 @@ exa repetition 1: 15/15 checks, 22.1s
 Cleanup verified: true
 ```
 
-`baseline` means Claude worked without Exa. We tested both programs, and all four repairs passed all 15 checks. Claude fixed this particular task with or without the docs, so these results don't show that Exa improved the repair. The <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">test results</a> include all four runs and their limits.
+`baseline` means Claude worked without Exa. Both versions passed in this run. This is one repair task, so it doesn't show whether search improves code repair more broadly.
 
 Each run gets its own folder under `.runs/`, with the repaired Python files and a `run.json` report. The report lists the tests, sources Exa found, reported model and search costs, and whether cleanup finished. These files stay on your computer after the sandboxes are gone.
 
@@ -115,18 +113,5 @@ Each run gets its own folder under `.runs/`, with the repaired Python files and 
 | <a href="guides/exa-sandboxes.md" target="_blank" rel="noopener noreferrer">Full walkthrough</a> | How the pieces fit together, setup, and what to do if a run fails |
 | <a href="python/main.py" target="_blank" rel="noopener noreferrer">Python client</a> · <a href="typescript/main.ts" target="_blank" rel="noopener noreferrer">TypeScript client</a> | Start here to change how the comparison runs |
 | <a href="shared/starter.py" target="_blank" rel="noopener noreferrer">Broken module</a> · <a href="shared/cases.json" target="_blank" rel="noopener noreferrer">Test cases</a> | The reporting task and expected answers |
-| <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">Validation</a> · <a href="examples/verified" target="_blank" rel="noopener noreferrer">Verified repairs</a> | What happened in the test runs, plus the fixes Claude wrote |
-
-## Development
-
-After installing the libraries for the language you're using, run its checks below. They run on your computer and don't need keys or create cloud charges.
-
-```sh
-# Check Python behavior and the published evidence.
-python/.venv/bin/python -m unittest discover -s tests -v
-# Check TypeScript types and behavior.
-npm run check --prefix typescript
-npm run test --prefix typescript
-```
 
 <a href="LICENSE" target="_blank" rel="noopener noreferrer">MIT license</a> · <a href="https://github.com/ojusave/render-workflows-exa-langchain" target="_blank" rel="noopener noreferrer">Exa + Render Workflows</a> · <a href="https://github.com/ojusave/openrouter-sandboxes" target="_blank" rel="noopener noreferrer">OpenRouter + Render Sandboxes</a>
