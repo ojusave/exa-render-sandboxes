@@ -3,7 +3,7 @@
 
 # Exa + Render Sandboxes
 
-Compare AI code repairs with and without Exa search, then verify the results on Render.
+Repair Python code with Exa, Claude, and Render Sandboxes.
 
 <!-- Each badge links to the product, implementation, or real automated check it names. -->
 <p>
@@ -23,19 +23,21 @@ Compare AI code repairs with and without Exa search, then verify the results on 
 
 </div>
 
-A library upgrade breaks a Python reporting module. Exa finds the current documentation, Claude Haiku through OpenRouter proposes a fix, and Render Sandboxes runs the code on temporary Linux computers. Your local Python or TypeScript client coordinates the work and compares the output with fixed answers.
+The sample Python report uses Polars, a library for working with tables, but breaks on version 2.0. This example asks Claude Haiku to fix it. Exa finds the current docs, and Render Sandboxes runs the proposed code to check whether it works.
 
-Both clients run the same experiment: give the model the broken code **with and without Exa's documentation**, allow up to two repair attempts, and check each final repair in a fresh sandbox. Each repair faces 15 tests, including 12 inputs the model did not see.
+You can run the example from Python or TypeScript. That program runs on your computer, calls Claude through OpenRouter, and sends the generated Python code to a temporary Linux environment on Render.
+
+It also tries the same repair without Exa, so you can compare the two. Each version gets up to two attempts, then a fresh sandbox tests the final code. There are 15 test cases, including 12 that Claude doesn't see while working on the fix.
 
 ## Prerequisites
 
-Git, a macOS/Linux terminal, and **Python 3.11+ or Node.js 22+**. You also need <a href="https://render.com/docs/sandboxes#1-confirm-access" target="_blank" rel="noopener noreferrer">Render Sandbox access</a>, an <a href="https://dashboard.exa.ai/api-keys" target="_blank" rel="noopener noreferrer">Exa key</a>, and <a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer">OpenRouter credit</a>. Render Sandboxes is in early access.
+You'll need Git and **Python 3.11+ or Node.js 22+**, with a terminal on macOS or Linux. You'll also need <a href="https://render.com/docs/sandboxes#1-confirm-access" target="_blank" rel="noopener noreferrer">Render Sandbox access</a>, an <a href="https://dashboard.exa.ai/api-keys" target="_blank" rel="noopener noreferrer">Exa key</a>, and <a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer">OpenRouter credit</a>. Render Sandboxes is in early access.
 
-A default run uses five paid temporary sandboxes, one Exa search, and at most four model requests. Keys stay in the local client. The client stops its sandboxes and deletes its prepared snapshot after the run.
+The default comparison uses five paid sandboxes, one Exa search, and up to four model requests. Your keys aren't passed to the sandboxes. When the run finishes, the program stops the sandboxes and deletes the saved setup it used to create them.
 
 ## Quickstart
 
-### 1. Download and configure
+### 1. Get the code
 
 ```sh
 # Download the source and enter the project folder.
@@ -46,7 +48,7 @@ cp .env.example .env
 chmod 600 .env
 ```
 
-Open `.env` and fill in `RENDER_API_KEY`, `RENDER_WORKSPACE_ID`, `EXA_API_KEY`, and `OPENROUTER_API_KEY`. The keys authorize requests to your accounts; the workspace ID selects where Render runs the code. <a href="guides/exa-sandboxes.md#prerequisites" target="_blank" rel="noopener noreferrer">Where to get each value.</a>
+Open `.env` and fill in `RENDER_API_KEY`, `RENDER_WORKSPACE_ID`, `EXA_API_KEY`, and `OPENROUTER_API_KEY`. The keys let the program use your accounts. The workspace ID tells Render where to create the sandboxes. <a href="guides/exa-sandboxes.md#prerequisites" target="_blank" rel="noopener noreferrer">Where to get each value.</a>
 
 ### 2. Load your settings
 
@@ -60,9 +62,9 @@ set -a
 set +a
 ```
 
-### 3. Choose one client
+### 3. Run the comparison
 
-Both options run the complete comparison. Running both makes two sets of paid requests.
+Choose Python or TypeScript below. Either one runs the full comparison; running both means paying for two runs.
 
 <!-- Each section contains installation and execution so readers can follow one language. -->
 <details open>
@@ -90,11 +92,11 @@ npm run compare --prefix typescript
 
 </details>
 
-The client prints the location of `run.json`, which records the results. Cloud setup can be quiet for several minutes. The <a href="guides/exa-sandboxes.md" target="_blank" rel="noopener noreferrer">full guide</a> explains each step and provides cleanup recovery commands.
+Setup can take several minutes without printing anything. When the run finishes, you'll see where it saved `run.json`, the results file. If the run stops before cleanup finishes, follow the <a href="guides/exa-sandboxes.md" target="_blank" rel="noopener noreferrer">full guide</a> to stop any remaining sandboxes.
 
 ## Expected result
 
-Abbreviated output from the real TypeScript run; timings vary:
+Here's the end of a completed TypeScript run. The times will vary from run to run:
 
 ```text
 baseline repetition 1: 15/15 checks, 20.2s
@@ -102,22 +104,22 @@ exa repetition 1: 15/15 checks, 22.1s
 Cleanup verified: true
 ```
 
-`baseline` is the mode without search. **Both modes passed all 15 tests in both languages.** This task demonstrates a working integration, but showed no repair-success improvement from Exa. See the <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">measured results and limits</a> before drawing broader conclusions.
+`baseline` means Claude worked without Exa. We tested both programs, and all four repairs passed all 15 checks. Claude fixed this particular task with or without the docs, so these results don't show that Exa improved the repair. The <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">test results</a> include all four runs and their limits.
 
-Each run saves its repaired Python files and `run.json` in a new `.runs/` folder. The report includes test results, search sources, reported model/search costs, and cleanup status. The local files remain after remote cleanup.
+Each run gets its own folder under `.runs/`, with the repaired Python files and a `run.json` report. The report lists the tests, sources Exa found, reported model and search costs, and whether cleanup finished. These files stay on your computer after the sandboxes are gone.
 
 ## Explore the project
 
-| Start here | What you will find |
+| File | What it covers |
 | --- | --- |
-| <a href="guides/exa-sandboxes.md" target="_blank" rel="noopener noreferrer">Full walkthrough</a> | Architecture, credentials, execution, cleanup and recovery |
-| <a href="python/main.py" target="_blank" rel="noopener noreferrer">Python client</a> · <a href="typescript/main.ts" target="_blank" rel="noopener noreferrer">TypeScript client</a> | The two implementations of the same comparison |
+| <a href="guides/exa-sandboxes.md" target="_blank" rel="noopener noreferrer">Full walkthrough</a> | How the pieces fit together, setup, and what to do if a run fails |
+| <a href="python/main.py" target="_blank" rel="noopener noreferrer">Python client</a> · <a href="typescript/main.ts" target="_blank" rel="noopener noreferrer">TypeScript client</a> | Start here to change how the comparison runs |
 | <a href="shared/starter.py" target="_blank" rel="noopener noreferrer">Broken module</a> · <a href="shared/cases.json" target="_blank" rel="noopener noreferrer">Test cases</a> | The reporting task and expected answers |
-| <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">Validation</a> · <a href="examples/verified" target="_blank" rel="noopener noreferrer">Verified repairs</a> | Live evidence and the exact generated code that passed |
+| <a href="VALIDATION.md" target="_blank" rel="noopener noreferrer">Validation</a> · <a href="examples/verified" target="_blank" rel="noopener noreferrer">Verified repairs</a> | What happened in the test runs, plus the fixes Claude wrote |
 
 ## Development
 
-After installing the corresponding client libraries, these checks run locally without provider keys or cloud charges:
+After installing the libraries for the language you're using, run its checks below. They run on your computer and don't need keys or create cloud charges.
 
 ```sh
 # Check Python behavior and the published evidence.
