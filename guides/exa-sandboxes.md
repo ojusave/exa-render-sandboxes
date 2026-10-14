@@ -2,17 +2,28 @@
 
 <a href="../README.md" target="_blank" rel="noopener noreferrer">Back to the repository overview</a>
 
-A model can suggest a code fix, but current documentation and real test results help establish whether the fix works. This example uses Exa to find documentation, Claude Haiku through OpenRouter to propose a repair, and Render Sandboxes to run the resulting code on temporary Linux computers.
+When a library changes, an AI model may suggest code that uses an older version. You need current documentation to inform the repair and a place to run the proposed code. A **sandbox** is a separate environment where you can execute code and inspect its results. In this guide, Render provides temporary Linux computers for that work, separate from your own computer.
+
+This example combines **Exa documentation search**, **Claude Haiku through OpenRouter**, and **Render Sandboxes for code execution**. You finish with repaired Python files, their test results, and the documentation retrieved for the model.
 
 Both the Python and TypeScript clients repair the same Python reporting module after a Polars upgrade. Polars is a library for working with tables. The module must put unequal-length columns side by side, turn category numbers into labels, and read calendar dates. For example, three days and two counts should produce three rows, with the last count left empty.
 
-Each client compares two modes: the same model receives the task either without search or with documentation retrieved by Exa. Each mode gets at most two repair attempts. The final source faces 15 checks, including 12 inputs the model did not see, in a fresh sandbox. These are called **held-out tests**. The expected answers stay in the client.
+Each client, the program you run on your computer, compares two modes: the same model receives the task either without search or with documentation retrieved by Exa. Each mode gets at most two repair attempts. The final source faces 15 checks, including 12 inputs the model did not see, in a fresh sandbox. These are called **held-out tests**. The expected answers stay in the client.
 
 Render Sandboxes is in early access. The comparison covers one repair task; both versions passed in the recorded run.
 
-![Where each step runs](../docs/flow.svg)
+## How search and code execution work together
 
-The client runs on your computer, or on your own server. All three service keys stay in that process. It sends only synthetic source, public test errors, and retrieved documentation to OpenRouter. Generated Python runs only in Render. A **snapshot** saves the prepared filesystem so each sandbox can start with the same installed Polars version. The snapshot is created before any repair code is uploaded.
+| Part | Where it runs | Its job |
+| --- | --- | --- |
+| Python or TypeScript client | Your computer | Coordinate the comparison, check results, save files, and clean up |
+| Exa | Exa's service | Find and retrieve the relevant Polars documentation |
+| Claude Haiku, reached through OpenRouter | Model provider's service | Propose a Python repair using the task, test feedback, and any retrieved documentation |
+| Render Sandboxes | Render | Run the generated Python and test each final repair in a fresh environment |
+
+![The local client retrieves documentation from Exa, asks Claude for a repair through OpenRouter, and tests the generated code in Render Sandboxes.](../docs/flow.svg)
+
+You can also run the client on your own server. All three service keys stay with it. It sends only synthetic source, public test errors, and retrieved documentation to OpenRouter. A **snapshot** saves the prepared filesystem so each sandbox can start with the same installed Polars version. The snapshot is created before any repair code is uploaded.
 
 ## Prerequisites
 

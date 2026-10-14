@@ -3,7 +3,7 @@
 
 # Exa + Render Sandboxes
 
-Repair Python code with Exa, Claude, and Render Sandboxes.
+Find documentation with Exa, then run and test an AI-generated code fix on Render.
 
 <!-- Each badge links to the product, implementation, or real automated check it names. -->
 <p>
@@ -21,11 +21,11 @@ Repair Python code with Exa, Claude, and Render Sandboxes.
 
 </div>
 
-The sample Python report uses Polars, a library for working with tables, but breaks on version 2.0. This example asks Claude Haiku to fix it. Exa finds the current docs, and Render Sandboxes runs the proposed code to check whether it works.
+An AI model can suggest a fix, but you need to run the code to check it. A **sandbox** is a separate environment for that work. Render Sandboxes provides temporary Linux computers where this example runs generated code and tests, separately from your own computer.
 
-You can run the example from Python or TypeScript. That program runs on your computer, calls Claude through OpenRouter, and sends the generated Python code to a temporary Linux environment on Render.
+The sample Python report breaks after an upgrade to Polars 2.0, a library for working with tables. **Exa finds the documentation, Claude Haiku proposes a repair, and Render runs the tests.** You finish with the repaired Python files and a report showing which checks passed.
 
-It also tries the same repair without Exa, so you can compare the two. Each version gets up to two attempts, then a fresh sandbox tests the final code.
+Choose a Python or TypeScript client. It runs on your computer, reaches Claude through OpenRouter, and compares repairs with and without Exa search. Each gets up to two attempts, then a fresh sandbox checks the final code.
 
 ## Prerequisites
 
